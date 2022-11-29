@@ -11,11 +11,11 @@ import java.util.Map;
 @RequestMapping("/")
 public class UserController {
 
-    UserService service;
+    UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
-        this.service = userService;
+        this.userService = userService;
     }
 
     @GetMapping("test")
@@ -24,9 +24,7 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public boolean login(@RequestBody Map<String, String> body) {
-        String username = body.get("username");
-        String password = body.get("password");
-        return service.login(username, password);
+    public boolean login(@RequestBody Map<String, String> data) {
+        return this.userService.login(data);
     }
 }

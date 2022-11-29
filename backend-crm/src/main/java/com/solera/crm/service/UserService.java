@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -20,19 +21,26 @@ public class UserService {
     }
 
     // Checks if user exists and log in
-    public boolean login(String username, String password) {
-        MessageDigest md = null;
+    public boolean login(Map<String, String> data) {
+        User user = getUser(data);
+        return user != null;
+    }
+
+    // Finds user from data
+    public User getUser(Map<String, String> data) {
+        String username = data.get("username");
+        String password = data.get("password");
+        MessageDigest md;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
         md.update(password.getBytes());
         byte[] digest = md.digest();
         String hashedPassword = DatatypeConverter.printHexBinary(digest).toUpperCase();
 
-        User user = repo.findByUsernameAndPassword(username, hashedPassword);
-        return user != null;
+        return repo.findByUsernameAndPassword(username, hashedPassword);
     }
 }
