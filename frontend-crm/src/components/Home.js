@@ -1,11 +1,12 @@
 import APIService from "../services/APIService";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Home({ user }) {
   const [opportunities, setOpportunities] = useState([]);
 
   useEffect(() => {
-    APIService.getOpportunities().then(({ data }) => {
+    console.log(document.cookie);
+    APIService.getOpportunities(user).then(({data}) => {
       console.log(data);
     });
   }, []);

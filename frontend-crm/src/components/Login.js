@@ -1,24 +1,28 @@
+import { useNavigate } from "react-router-dom";
 import APIService from "../services/APIService";
 
 export default function Login({ props }) {
   const [user, setUser] = props;
 
+  const navigate = useNavigate()
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUser((values) => ({ ...values, [name]: value }));
-    console.log(user);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     APIService.login(user).then(({ data }) => {
-      // if (data) {
-        console.log(data);
-        // window.location.href = "/home";
-      // } else {
-        // alert("ERROR")
-        // setUser({username: "", password: ""})
-      // }
+      const {userId, token} = data;
+      if (data) {
+        document.cookie = `token=${token}`;
+        setUser((values) => ({ ...values, [userId]: userId }));
+        navigate("home")
+      } else {
+        alert("ERROR");
+        setUser({ username: "", password: "" });
+      }
     });
   };
 

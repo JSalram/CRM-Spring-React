@@ -11,8 +11,8 @@ class APIService {
     return axios.post(this.getUrl("login"), user);
   }
 
-  getOpportunities() {
-    return axios.get(this.getUrl("opportunities"));
+  getOpportunities(user) {
+    return axios.post(this.getUrl("opportunities"), user);
   }
 
   getUrl(path) {

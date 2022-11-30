@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
-  const [user, setUser] = useState({
+  const [data, setData] = useState({
     username: "",
     password: ""
   });
@@ -14,8 +14,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Login props={[user, setUser]} />} />
-          <Route path="home" element={<Home />} />
+          <Route path="" element={<Login props={[data, setData]} />} />
+          <Route path="home" element={<Home user={data} />} />
         </Routes>
       </BrowserRouter>
     </div>

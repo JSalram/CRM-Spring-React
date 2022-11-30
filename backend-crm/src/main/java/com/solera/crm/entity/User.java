@@ -1,5 +1,6 @@
 package com.solera.crm.entity;
 
+import com.sun.istack.NotNull;
 import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;

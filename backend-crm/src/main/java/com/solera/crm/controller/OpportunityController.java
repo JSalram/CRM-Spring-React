@@ -25,7 +25,12 @@ public class OpportunityController {
     }
 
     @PostMapping
-    public List<Opportunity> getOpportunities(@RequestBody Map<String, String> data) {
+    public List<Opportunity> getOpportunities(
+            @CookieValue(name = "token", defaultValue = "token") String token,
+            @RequestBody Map<String, String> data
+    ) {
+        // TOKEN NOT WORKING
+        token = data.get("token");
         User user = userService.getUser(data);
         if (user == null) return null;
         return this.opportunityService.findOpportunitiesByUser(user);
