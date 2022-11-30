@@ -22,11 +22,23 @@ public class Opportunity {
     @Column(name = "id", nullable = false)
     private Long id;
     private boolean successful;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_ID")
     private Client client;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "opportunity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "opportunity", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Contact> contacts = new java.util.LinkedHashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     // CONSTRUCTORS
     public Opportunity() {

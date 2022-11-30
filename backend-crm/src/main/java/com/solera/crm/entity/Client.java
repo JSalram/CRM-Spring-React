@@ -23,9 +23,9 @@ public class Client {
     private String name;
     private String lastName;
     private String nif;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Opportunity> opportunities = new java.util.LinkedHashSet<>();
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "opportunity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "opportunity", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Contact> contacts = new java.util.LinkedHashSet<>();
 
     // CONSTRUCTORS

@@ -1,5 +1,6 @@
 package com.solera.crm;
 
+import com.solera.crm.entity.User;
 import com.solera.crm.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import java.util.Map;
 @SpringBootTest
 public class UserTests {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserTests(UserService userService) {
@@ -24,8 +25,8 @@ public class UserTests {
         Map<String, String> data = new HashMap<>();
         data.put("username", "admin");
         data.put("password", "admin");
-        boolean logged = this.userService.login(data);
-        Assertions.assertTrue(logged);
+        User logged = this.userService.login(data);
+        Assertions.assertNotNull(logged);
     }
 
     @Test
@@ -33,7 +34,7 @@ public class UserTests {
         Map<String, String> data = new HashMap<>();
         data.put("username", "error");
         data.put("password", "error");
-        boolean logged = this.userService.login(data);
-        Assertions.assertFalse(logged);
+        User logged = this.userService.login(data);
+        Assertions.assertNull(logged);
     }
 }

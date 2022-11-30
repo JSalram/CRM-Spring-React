@@ -24,7 +24,7 @@ public class OpportunityController {
         this.opportunityService = opportunityService;
     }
 
-    @GetMapping
+    @PostMapping
     public List<Opportunity> getOpportunities(@RequestBody Map<String, String> data) {
         User user = userService.getUser(data);
         if (user == null) return null;

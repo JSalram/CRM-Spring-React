@@ -21,9 +21,8 @@ public class UserService {
     }
 
     // Checks if user exists and log in
-    public boolean login(Map<String, String> data) {
-        User user = getUser(data);
-        return user != null;
+    public User login(Map<String, String> data) {
+        return getUser(data);
     }
 
     // Finds user from data

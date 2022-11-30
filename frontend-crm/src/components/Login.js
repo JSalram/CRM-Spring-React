@@ -1,20 +1,24 @@
-import { useState } from "react";
 import APIService from "../services/APIService";
 
-export default function Login() {
-  const [user, setUser] = useState({});
+export default function Login({ props }) {
+  const [user, setUser] = props;
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUser((values) => ({ ...values, [name]: value }));
+    console.log(user);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     APIService.login(user).then(({ data }) => {
-      if (data) {
-        window.location.href = "/home";
-      }
+      // if (data) {
+        console.log(data);
+        // window.location.href = "/home";
+      // } else {
+        // alert("ERROR")
+        // setUser({username: "", password: ""})
+      // }
     });
   };
 
@@ -28,6 +32,7 @@ export default function Login() {
             type="text"
             name="username"
             placeholder="Username"
+            value={user.username}
             onChange={handleChange}
           />
         </label>
@@ -38,6 +43,7 @@ export default function Login() {
             type="password"
             name="password"
             placeholder="Password"
+            value={user.password}
             onChange={handleChange}
           />
         </label>

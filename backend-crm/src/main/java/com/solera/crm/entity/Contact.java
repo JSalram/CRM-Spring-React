@@ -23,10 +23,10 @@ public class Contact {
     private Date date;
     private String type;
     private boolean completed;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "opportunity_id")
     private Opportunity opportunity;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Client client;
 
