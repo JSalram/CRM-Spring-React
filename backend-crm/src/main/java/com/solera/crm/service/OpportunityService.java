@@ -6,19 +6,21 @@ import com.solera.crm.repository.OpportunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OpportunityService {
 
-    private final OpportunityRepository repo;
+    @Autowired
+    private final OpportunityRepository opportunityRepository;
 
     @Autowired
     public OpportunityService(OpportunityRepository opportunityRepository) {
-        this.repo = opportunityRepository;
+        this.opportunityRepository = opportunityRepository;
     }
 
     public List<Opportunity> findOpportunitiesByUser(User user) {
-        return repo.findAll();
+        return opportunityRepository.findByUser(user);
     }
 }

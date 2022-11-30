@@ -19,10 +19,13 @@ public class UserConfig {
         return args -> {
             User u1 = new User(
                     "admin",
-                    "21232f297a57a5a743894a0e4a801fc3");
+                    "21232f297a57a5a743894a0e4a801fc3",
+                    User.ROLE_ADMIN
+            );
             User u2 = new User(
                     "user",
-                    "ee11cbb19052e40b07aac0ca060c23ee"
+                    "ee11cbb19052e40b07aac0ca060c23ee",
+                    User.ROLE_USER
             );
 
             Opportunity op = new Opportunity(
