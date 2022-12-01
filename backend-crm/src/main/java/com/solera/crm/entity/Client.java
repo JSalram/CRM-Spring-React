@@ -20,9 +20,6 @@ public class Client {
     )
     @Column(name = "id", nullable = false)
     private Long id;
-    private String name;
-    private String lastName;
-    private String nif;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Opportunity> opportunities = new java.util.LinkedHashSet<>();
     @OneToMany(mappedBy = "opportunity", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -32,10 +29,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(String name, String lastName, String nif, Set<Opportunity> opportunities, Set<Contact> contacts) {
-        this.name = name;
-        this.lastName = lastName;
-        this.nif = nif;
+    public Client(String nif, Set<Opportunity> opportunities, Set<Contact> contacts) {
         this.opportunities = opportunities;
         this.contacts = contacts;
     }
@@ -43,30 +37,6 @@ public class Client {
     // METHODS
     public Long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getNif() {
-        return nif;
-    }
-
-    public void setNif(String nif) {
-        this.nif = nif;
     }
 
     public Set<Opportunity> getOpportunities() {

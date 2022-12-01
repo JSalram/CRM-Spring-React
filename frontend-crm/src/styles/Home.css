@@ -1,0 +1,16 @@
+.row {
+  display: flex;
+}
+
+.row div {
+  padding: 10px;
+}
+
+.row .navbar {
+  border-right: 1px solid gray;
+  flex: 15%;
+}
+
+.row .content {
+  flex: 85%;
+}

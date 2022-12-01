@@ -1,5 +1,7 @@
 package com.solera.crm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,12 +22,15 @@ public class Contact {
     )
     @Column(name = "id", nullable = false)
     private Long id;
+    private String description;
     private Date date;
     private String type;
     private boolean completed;
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "opportunity_id")
     private Opportunity opportunity;
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Client client;
@@ -34,16 +39,25 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(Date date, String type, boolean completed, Client client) {
+    public Contact(String description, Date date, String type, boolean completed) {
+        this.description = description;
         this.date = date;
         this.type = type;
         this.completed = completed;
-        this.client = client;
+        this.client = null;
     }
 
     // METHODS
     public Long getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getDate() {

@@ -29,15 +29,17 @@ public class UserConfig {
             );
 
             Opportunity op = new Opportunity(
-                    false,
-                    null
+                    "Juan",
+                    "Dominguez",
+                    "123456798",
+                    false
             );
             op.addContact(
                     new Contact(
+                            "Visita en casa de Juan",
                             new Date(),
                             "visit",
-                            false,
-                            null
+                            true
                     )
             );
             u1.addOpportunity(op);

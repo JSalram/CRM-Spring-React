@@ -1,0 +1,13 @@
+html, body {
+  height: 100%;
+}
+
+h1, h2, form {
+  text-align: center;
+}
+
+form {
+  background-color: lightgray;
+  border-radius: 10px;
+  padding: 10px;
+}

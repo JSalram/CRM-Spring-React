@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import APIService from "../services/APIService";
+import CookiesService from "../services/CookiesService";
 
-export default function Login({ props }) {
-  const [user, setUser] = props;
-
-  const navigate = useNavigate()
+export default function Login() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -14,11 +18,9 @@ export default function Login({ props }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     APIService.login(user).then(({ data }) => {
-      const {userId, token} = data;
       if (data) {
-        document.cookie = `token=${token}`;
-        setUser((values) => ({ ...values, [userId]: userId }));
-        navigate("home")
+        CookiesService.setUserData(data);
+        navigate("home");
       } else {
         alert("ERROR");
         setUser({ username: "", password: "" });

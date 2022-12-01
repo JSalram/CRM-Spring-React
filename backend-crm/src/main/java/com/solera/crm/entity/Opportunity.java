@@ -1,5 +1,7 @@
 package com.solera.crm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.Set;
@@ -21,70 +23,84 @@ public class Opportunity {
     )
     @Column(name = "id", nullable = false)
     private Long id;
+    private String name;
+    private String lastName;
+    private String nif;
     private boolean successful;
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_ID")
     private Client client;
     @OneToMany(mappedBy = "opportunity", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Contact> contacts = new java.util.LinkedHashSet<>();
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     // CONSTRUCTORS
     public Opportunity() {
     }
-
-    public Opportunity(boolean successful, Client client) {
+    public Opportunity(String name, String lastName, String nif, boolean successful) {
+        this.name = name;
+        this.lastName = lastName;
+        this.nif = nif;
         this.successful = successful;
-        this.client = client;
+        this.client = null;
     }
 
     // METHODS
     public Long getId() {
         return id;
     }
-
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public String getNif() {
+        return nif;
+    }
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
     public boolean isSuccessful() {
         return successful;
     }
-
     public void setSuccessful(boolean successful) {
         this.successful = successful;
     }
-
     public Client getClient() {
         return client;
     }
-
     public void setClient(Client client) {
         this.client = client;
     }
-
     public Set<Contact> getContacts() {
         return contacts;
     }
-
     public void setContacts(Set<Contact> contacts) {
         this.contacts = contacts;
     }
-
     public void addContact(Contact contact) {
         contact.setOpportunity(this);
         this.contacts.add(contact);
     }
-
     public void removeContact(Contact contact) {
         contact.setOpportunity(null);
         this.contacts.remove(contact);
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }

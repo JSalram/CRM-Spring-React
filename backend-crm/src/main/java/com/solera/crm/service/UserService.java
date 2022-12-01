@@ -11,11 +11,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private final UserRepository repo;
+    @Autowired
+    private UserRepository userRepository;
     private static final SecureRandom secureRandom = new SecureRandom();
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 
@@ -26,25 +28,8 @@ public class UserService {
         return base64Encoder.encodeToString(randomBytes);
     }
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.repo = userRepository;
-    }
-
-    // Checks if user exists and log in
-    public User login(Map<String, String> data) {
-        User user = getUser(data);
-        if (user != null) {
-            user.setToken(generateNewToken());
-            this.repo.flush();
-        }
-        return getUser(data);
-    }
-
-    // Finds user from data
-    public User getUser(Map<String, String> data) {
-        String username = data.get("username");
-        String password = data.get("password");
+    // Encrypts password
+    private static String encryptPassword(String password) {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("MD5");
@@ -54,8 +39,39 @@ public class UserService {
         }
         md.update(password.getBytes());
         byte[] digest = md.digest();
-        String hashedPassword = DatatypeConverter.printHexBinary(digest).toUpperCase();
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
 
-        return repo.findByUsernameAndPassword(username, hashedPassword);
+    // Checks if user exists and log in
+    public User login(Map<String, String> data) {
+        User user = getUser(data);
+        if (user != null) {
+            user.setToken(generateNewToken());
+            this.userRepository.flush();
+        }
+        return getUser(data);
+    }
+
+    // Finds user from data
+    public User getUser(Map<String, String> data) {
+        String username = data.get("username");
+        String password = data.get("password");
+
+        String hashedPassword = encryptPassword(password);
+        if (hashedPassword == null) return null;
+
+        return userRepository.findByUsernameAndPassword(username, hashedPassword);
+    }
+
+    public User getUserByToken(String token) {
+        if (token.isEmpty()) {
+            return null;
+        }
+        Optional<User> user = this.userRepository.findByToken(token);
+        return user.orElse(null);
+    }
+
+    public boolean checkUserHasPermissions(Map<String, String> data) {
+        return true;
     }
 }
