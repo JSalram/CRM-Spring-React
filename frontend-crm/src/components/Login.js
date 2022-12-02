@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import APIService from "../services/APIService";
-import CookiesService from "../services/CookiesService";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ export default function Login() {
     event.preventDefault();
     APIService.login(user).then(({ data }) => {
       if (data) {
-        CookiesService.setUserData(data);
         navigate("home");
       } else {
         alert("ERROR");

@@ -1,8 +1,12 @@
-html, body {
+html,
+body {
   height: 100%;
+  margin: 0;
 }
 
-h1, h2, form {
+h1,
+h2,
+form {
   text-align: center;
 }
 
@@ -10,4 +14,24 @@ form {
   background-color: lightgray;
   border-radius: 10px;
   padding: 10px;
+  margin: auto 50px;
+}
+
+form input {
+  width: 50%;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  padding: 5px;
+  background-color: rgb(112, 162, 255);
+}
+
+input[type="submit"],
+button {
+  cursor: pointer;
+}
+input[type="submit"]:hover,
+button:hover {
+  filter: brightness(0.5);
 }

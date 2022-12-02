@@ -3,14 +3,25 @@ import Navbar from "./Navbar";
 import HomePage from "./pages/HomePage";
 import Opportunities from "./pages/Opportunities";
 import NewOpportunity from "./pages/NewOpportunity";
-import { Routes, Route } from "react-router-dom";
-import CookiesService from "../services/CookiesService";
+import NewContact from "./pages/NewContact";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Clients from "./pages/Clients";
+import { useEffect } from "react";
+import APIService from "../services/APIService";
 
 export default function Home() {
-  if (!CookiesService.getUserId()) return null;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    APIService.checkUser()
+      .then()
+      .catch(() => {
+        navigate("/")
+      });
+  }, []);
 
   return (
-    <div className="row">
+    <div>
       <div className="navbar">
         <Navbar />
       </div>
@@ -19,7 +30,9 @@ export default function Home() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/opportunities" element={<Opportunities />} />
+          <Route path="/opportunities/:id/new" element={<NewContact />} />
           <Route path="/opportunities/new" element={<NewOpportunity />} />
+          <Route path="/clients" element={<Clients />} />
         </Routes>
       </div>
     </div>

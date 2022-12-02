@@ -1,16 +1,23 @@
 import axios from "axios";
-import CookiesService from "./CookiesService";
 
 const url = "http://localhost:8080/";
 axios.defaults.withCredentials = true;
 
 class APIService {
-  getTest() {
-    return axios.get(this.getUrl("test"));
+  getUrl(path) {
+    return url + path;
   }
 
   login(user) {
     return axios.post(this.getUrl("login"), user);
+  }
+
+  logout() {
+    return axios.get(this.getUrl("logout"));
+  }
+
+  checkUser() {
+    return axios.get(this.getUrl("checkUser"));
   }
 
   getOpportunities() {
@@ -18,16 +25,24 @@ class APIService {
   }
 
   newOpportunity(opportunity) {
-    return this.post(this.getUrl("opportunities/new"), opportunity);
+    return axios.post(this.getUrl("opportunities/new"), opportunity);
   }
 
-  getUrl(path) {
-    return url + path;
+  removeOpportunity(idOpportunity) {
+    return axios.delete(this.getUrl(`opportunities/remove/${idOpportunity}`));
   }
 
-  post(url, data) {
-    data.user = CookiesService.getUserId();
-    return axios.post(url, data);
+  addContact(idOpportunity, contact) {
+    contact.date = new Date();
+    return axios.post(this.getUrl(`opportunities/${idOpportunity}/new`), contact);
+  }
+
+  getClients() {
+    return axios.get(this.getUrl("clients"));
+  }
+
+  convertClient(idOpportunity) {
+    return axios.get(this.getUrl(`opportunities/client/${idOpportunity}`));
   }
 }
 

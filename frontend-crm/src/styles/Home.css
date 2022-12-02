@@ -1,16 +1,78 @@
-.row {
-  display: flex;
+.navbar {
+  background-color: rgb(30, 30, 30);
+  color: white;
+  padding: 15px;
 }
 
-.row div {
+.span-right {
+  float: right;
+}
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.content {
+  margin: auto 15px;
+}
+
+ul li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list {
+  padding: 0;
+  display: block;
+  margin-right: auto;
+}
+
+.list-item {
+  border: 2px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.contactList {
+  background-color: lightblue;
+  border: 1px solid lightblue;
+  padding: 5px;
+}
+
+.newOpportunity {
+  display: block;
+  padding: 5px;
+  border: 2px solid greenyellow;
+  background-color: greenyellow;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+.newOpportunity:hover {
+  filter: brightness(.5);
+}
+
+.opButtons {
+  display: flex;
+  justify-content: space-around;
+}
+.opButtons button {
+  color: white;
   padding: 10px;
 }
-
-.row .navbar {
-  border-right: 1px solid gray;
-  flex: 15%;
+.opButtons button:hover {
+  filter: brightness(.5);
 }
 
-.row .content {
-  flex: 85%;
+.opButtons button:nth-child(1) {
+  background-color: rgb(0, 91, 0);
+}
+.opButtons button:nth-child(2) {
+  background-color: rgb(0, 0, 163);
+}
+.opButtons button:nth-child(3) {
+  background-color: rgb(162, 0, 0);
 }

@@ -31,6 +31,7 @@ public class UserConfig {
             Opportunity op = new Opportunity(
                     "Juan",
                     "Dominguez",
+                    675781359,
                     "123456798",
                     false
             );

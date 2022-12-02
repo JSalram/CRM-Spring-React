@@ -25,8 +25,10 @@ public class Opportunity {
     private Long id;
     private String name;
     private String lastName;
+    private int phoneNumber;
     private String nif;
     private boolean successful;
+    private boolean active = true;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_ID")
@@ -41,9 +43,10 @@ public class Opportunity {
     // CONSTRUCTORS
     public Opportunity() {
     }
-    public Opportunity(String name, String lastName, String nif, boolean successful) {
+    public Opportunity(String name, String lastName, int phoneNumber, String nif, boolean successful) {
         this.name = name;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.nif = nif;
         this.successful = successful;
         this.client = null;
@@ -62,6 +65,12 @@ public class Opportunity {
     public String getLastName() {
         return lastName;
     }
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -76,6 +85,12 @@ public class Opportunity {
     }
     public void setSuccessful(boolean successful) {
         this.successful = successful;
+    }
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
     }
     public Client getClient() {
         return client;

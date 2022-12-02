@@ -29,7 +29,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(String nif, Set<Opportunity> opportunities, Set<Contact> contacts) {
+    public Client(Set<Opportunity> opportunities, Set<Contact> contacts) {
         this.opportunities = opportunities;
         this.contacts = contacts;
     }

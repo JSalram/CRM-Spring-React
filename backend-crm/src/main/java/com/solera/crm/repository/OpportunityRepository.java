@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface OpportunityRepository extends JpaRepository<Opportunity, Long> {
 
-    List<Opportunity> findByUser(User user);
+    List<Opportunity> findByUserAndActiveOrderByIdDesc(User user, boolean active);
 }

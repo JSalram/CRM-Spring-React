@@ -71,7 +71,7 @@ public class UserService {
         return user.orElse(null);
     }
 
-    public boolean checkUserHasPermissions(Map<String, String> data) {
-        return true;
+    public boolean unauthorizedUser(String token) {
+        return getUserByToken(token) == null;
     }
 }
